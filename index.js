@@ -1,40 +1,25 @@
-const DISCORD_RPC = require("discord-rpc");
-const RPC = new DISCORD_RPC.Client({ transport: "ipc" });
+const discord = require('freeze-selfbot');
+const client = new discord.Client();
+const config = require("./config")
+const express = require('express');
+const console = require("./utils/logger")
+const app = express();
 
-DISCORD_RPC.register(process.env.app_id);
+module.exports = client;
+process.env.TOKEN ? client.login(process.env.TOKEN) : console.exit("No token provided");
+config.mode ? require(`./presences/${config.mode}`) : console.exit('No presence selected!');
+console.logger.info(`
 
-async function activity() {
-  if (!RPC) return;
+                    ██████╗ ██╗███████╗ ██████╗ ██████╗ ██████╗ ██████╗       ██████╗ ██████╗  ██████╗
+                    ██╔══██╗██║██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔══██╗      ██╔══██╗██╔══██╗██╔════╝
+                    ██║  ██║██║███████╗██║     ██║   ██║██████╔╝██║  ██║█████╗██████╔╝██████╔╝██║     
+                    ██║  ██║██║╚════██║██║     ██║   ██║██╔══██╗██║  ██║╚════╝██╔══██╗██╔═══╝ ██║     
+                    ██████╔╝██║███████║╚██████╗╚██████╔╝██║  ██║██████╔╝      ██║  ██║██║     ╚██████╗
+                    ╚═════╝ ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝       ╚═╝  ╚═╝╚═╝      ╚═════╝                                                                                
+`
+)
 
-  RPC.setActivity({
-    details: "Tes Discord",
-    state: "Tes Discord 2",
-    largeImageKey: "unnamed",
-    largeImageText: "Tes Image 1",
-    smallImageKey: "unnamed",
-    smallImageText: "Tes Image 2",
-    instance: false,
-    startTimestamp: Date.now(),
-    buttons: [
-      {
-        label: "Tes Link 1",
-        url: "https://www.google.com",
-      },
-      {
-        label: "Tes Link 1",
-        url: "https://www.facebook.com",
-      },
-    ],
-  });
-}
-
-RPC.on("ready", async () => {
-  console.log("RPC is enabled");
-  activity();
-
-  setInterval(() => {
-    activity();
-  }, 1000000);
+app.get('/', (_, res) => {
+  res.send('Presence is ready!');
 });
-
-RPC.login({ clientId: process.env.app_id });
+app.listen(3000)
