@@ -1,5 +1,5 @@
 const DISCORD_RPC = require("discord-rpc");
-const RPC = new DISCORD_RPC.Client({ transport: ipc });
+const RPC = new DISCORD_RPC.Client({ transport: "ipc" });
 
 DISCORD_RPC.register(process.env.app_id);
 
