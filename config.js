@@ -4,20 +4,20 @@ module.exports = {
     // spotify/game/twitch
     "mode": "game", 
     // dnd/online/idle
-    "status": "online",
+    "status": process.env.status,
 
     "game": {
         "applicationID": process.env.app_id,
 
-        "name": "Mars Telkom University", // title
-        "details": "Telkom University", // first row below title
-        "state": "Bandung, Indonesia", // row below first row
+        "name": process.env.name, // title
+        "details": process.env.details, // first row below title
+        "state": process.env.state, // row below first row
 
-        "largeImageKey": "logo", // Large Image
-        "largeImageText": "Telkom University", // the text when img surrounded (default is largeimage name in dev portal)
+        "largeImageKey": process.env.largeImageKey, // Large Image
+        "largeImageText": process.env.largeImageText, // the text when img surrounded (default is largeimage name in dev portal)
 
-        "smallImageKey": "badge", // Small Image
-        "smallImageText": "Verified",
+        "smallImageKey": process.env.smallImageKey, // Small Image
+        "smallImageText": process.env.smallImageText,
         
         // Date.now() Epoch timestamps
         "startTimestamp": new Date(), // time elapsed since this timestamp (increase ++)
